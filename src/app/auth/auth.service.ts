@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs/Subject';
 
+import { tokenNotExpired } from 'angular2-jwt';
+import Auth0Lock from 'auth0-lock';
 import { User } from './user.model';
 import { AuthData } from './auth-data.model';
 

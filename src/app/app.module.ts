@@ -14,6 +14,8 @@ import { HeaderComponent } from './navigation/header/header.component';
 import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
 import { AuthService } from './auth/auth.service';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { ChangingPasswordComponent } from './user-profile/changing-password/changing-password.component';
+import { UpdateAddressComponent } from './user-profile/update-address/update-address.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     WelcomeComponent,
     HeaderComponent,
     SidenavListComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    ChangingPasswordComponent,
+    UpdateAddressComponent
   ],
   imports: [
     BrowserModule,

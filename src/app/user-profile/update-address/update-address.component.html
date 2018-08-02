@@ -1,0 +1,32 @@
+<section class="updateAddress">
+  <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" [formGroup]="updateAddress" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+      <input
+      type="email"
+      matInput
+      placeholder="Old Email"
+      formControlName="oldEmail">
+      <mat-error *ngIf="updateAddress.controls.oldEmail.errors?.required && updateAddress.controls.oldEmail.touched">Old email is required</mat-error>
+    </mat-form-field>
+    <div [formGroup]="addressChange" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+      <mat-form-field>
+        <input
+        type="email"
+        matInput
+        placeholder="New Email"
+        formControlName="newEmail">
+        <mat-error *ngIf="addressChange.controls.newEmail.errors?.required && addressChange.controls.newEmail.touched">Email is required</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input
+        type="email"
+        matInput
+        placeholder="Confirm Email"
+        formControlName="confirmEmail">
+        <mat-error *ngIf="addressChange.errors?.doesMatchPassword">Email does not match</mat-error>
+        <mat-error *ngIf="addressChange.controls.confirmEmail.errors?.required && addressChange.controls.confirmEmail.touched">Confirm email is required</mat-error>
+      </mat-form-field>
+    </div>
+    <button type="submit" mat-raised-button color="primary" [disabled]="!updateAddress.valid">Submit</button>
+  </form>
+</section>

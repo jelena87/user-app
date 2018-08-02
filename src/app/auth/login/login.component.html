@@ -1,10 +1,10 @@
-<section>
+<section class="login-form">
   <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <mat-form-field>
       <input
       type="email"
       matInput
-      placeholder="Yor Email"
+      placeholder="Your Email"
       formControlName="email">
       <mat-hint>Please enter a valid email.</mat-hint>
       <mat-error>Invalid or missing email.</mat-error>
