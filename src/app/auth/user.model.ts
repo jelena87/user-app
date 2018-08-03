@@ -6,5 +6,6 @@ export interface Roles {
 export interface User {
   userId: string;
   email: string;
+  password: string;
   roles: Roles;
 }

@@ -16,6 +16,7 @@ import { AuthService } from './auth/auth.service';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { ChangingPasswordComponent } from './user-profile/changing-password/changing-password.component';
 import { UpdateAddressComponent } from './user-profile/update-address/update-address.component';
+import { AdminProfileComponent } from './admin-profile/admin-profile.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { UpdateAddressComponent } from './user-profile/update-address/update-add
     SidenavListComponent,
     UserProfileComponent,
     ChangingPasswordComponent,
-    UpdateAddressComponent
+    UpdateAddressComponent,
+    AdminProfileComponent
   ],
   imports: [
     BrowserModule,

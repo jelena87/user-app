@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs/Subject';
 
-import { tokenNotExpired } from 'angular2-jwt';
-import Auth0Lock from 'auth0-lock';
 import { User } from './user.model';
 import { AuthData } from './auth-data.model';
 
@@ -19,6 +17,7 @@ export class AuthService {
     this.user = {
     email: authData.email,
     roles: authData.roles,
+    password: authData.password,
     userId: Math.round(Math.random() * 10000).toString() //will be created on db
     };
     this.authSuccessfully();
@@ -28,6 +27,7 @@ export class AuthService {
     this.user = {
     email: authData.email,
     roles: authData.roles,
+    password: authData.password,
     userId: Math.round(Math.random() * 10000).toString() //will be created on db
     };
     this.authSuccessfully();
@@ -44,6 +44,10 @@ export class AuthService {
   }
 
   isAuth() {
+    return this.user != null;
+  }
+
+  isAdmin() {
     return this.user != null;
   }
 
