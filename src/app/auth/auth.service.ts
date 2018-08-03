@@ -10,6 +10,7 @@ export class AuthService {
   authChange = new Subject<boolean>();
   private user: User;
 
+
   constructor(private router: Router) {}
 
   registerUser(authData: AuthData) {
@@ -55,4 +56,5 @@ export class AuthService {
     this.authChange.next(true);
     this.router.navigate(['/user']);
   }
+
 }

@@ -10,7 +10,7 @@
       <li *ngIf="!isAuth"><a routerLink="/signup">Signup</a></li>
       <li *ngIf="!isAuth"><a routerLink="/login">Login</a></li>
       <li *ngIf="isAuth"><a routerLink="/user">User Profile</a></li>
-      <li *ngIf="isAdmin && isAuth"><a routerLink="/admin">Admin Profile</a></li>
+      <li *ngIf="isAuth"><a routerLink="/admin">Admin Profile</a></li>
       <li *ngIf="isAuth"><a style="cursor: pointer;" (click)="onLogout()">Logout</a></li>
     </ul>
   </div>

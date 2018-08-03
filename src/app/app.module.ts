@@ -17,6 +17,8 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { ChangingPasswordComponent } from './user-profile/changing-password/changing-password.component';
 import { UpdateAddressComponent } from './user-profile/update-address/update-address.component';
 import { AdminProfileComponent } from './admin-profile/admin-profile.component';
+import { UsersListComponent } from './admin-profile/users-list/users-list.component';
+import { AdminsListComponent } from './admin-profile/admins-list/admins-list.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { AdminProfileComponent } from './admin-profile/admin-profile.component';
     UserProfileComponent,
     ChangingPasswordComponent,
     UpdateAddressComponent,
-    AdminProfileComponent
+    AdminProfileComponent,
+    UsersListComponent,
+    AdminsListComponent
   ],
   imports: [
     BrowserModule,

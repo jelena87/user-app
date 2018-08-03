@@ -14,7 +14,7 @@ const routes: Routes = [
   {path: 'signup', component: SignupComponent},
   {path: 'login', component: LoginComponent},
   {path: 'user', component: UserProfileComponent, canActivate: [AuthGuard]},
-  {path: 'admin', component: AdminProfileComponent, canActivate: [AuthGuard,AdminGuard],data: { roles: ["admin"] }}
+  {path: 'admin', component: AdminProfileComponent}
 ]
 
 @NgModule({
