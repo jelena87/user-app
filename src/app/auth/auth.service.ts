@@ -1,60 +1,29 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { Subject } from 'rxjs/Subject';
-
-import { User } from './user.model';
-import { AuthData } from './auth-data.model';
+import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class AuthService {
-  authChange = new Subject<boolean>();
-  private user: User;
+  constructor(private http: HttpClient) {}
 
-
-  constructor(private router: Router) {}
-
-  registerUser(authData: AuthData) {
-    //send request to the server and create a user there
-    this.user = {
-    email: authData.email,
-    roles: authData.roles,
-    password: authData.password,
-    userId: Math.round(Math.random() * 10000).toString() //will be created on db
-    };
-    this.authSuccessfully();
-  }
-
-  login(authData: AuthData) {
-    this.user = {
-    email: authData.email,
-    roles: authData.roles,
-    password: authData.password,
-    userId: Math.round(Math.random() * 10000).toString() //will be created on db
-    };
-    this.authSuccessfully();
+  login(email: string, password: string) {
+    return this.http.post<any>('/users/authenticate', { email: email, password: password })
+      .pipe(map(user => {
+        //login successful if there is a jwt token in the response
+        if(user && user.token) {
+        //store user details and jwt token in local storage
+        localStorage.setItem('currentUser', JSON.stringify(user));
+      }
+      return user;
+    }));
   }
 
   logout() {
-    this.user = null;
-    this.authChange.next(false);
-    this.router.navigate(['/login']);
-  }
-
-  getUser() {
-    return { ...this.user };
+    //remove user from local storage
+    localStorage.removeItem('currentUser');
   }
 
   isAuth() {
-    return this.user != null;
+    return !!localStorage.getItem('currentUser');
   }
-
-  isAdmin() {
-    return this.user != null;
-  }
-
-  private authSuccessfully() {
-    this.authChange.next(true);
-    this.router.navigate(['/user']);
-  }
-
 }

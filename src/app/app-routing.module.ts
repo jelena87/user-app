@@ -6,7 +6,6 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { LoginComponent } from './auth/login/login.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { AuthGuard } from './auth/auth.guard';
-import { AdminGuard } from './auth/admin.guard';
 import { AdminProfileComponent } from './admin-profile/admin-profile.component';
 
 const routes: Routes = [
@@ -14,12 +13,14 @@ const routes: Routes = [
   {path: 'signup', component: SignupComponent},
   {path: 'login', component: LoginComponent},
   {path: 'user', component: UserProfileComponent, canActivate: [AuthGuard]},
-  {path: 'admin', component: AdminProfileComponent}
+  {path: 'admin', component: AdminProfileComponent},
+  // otherwise redirect to home
+    { path: '**', redirectTo: '' }
 ]
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  providers: [AuthGuard, AdminGuard]
+  providers: [AuthGuard]
 })
 export class AppRoutingModule { }

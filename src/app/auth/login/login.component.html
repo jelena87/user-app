@@ -5,7 +5,8 @@
       type="email"
       matInput
       placeholder="Your Email"
-      formControlName="email">
+      formControlName="email"
+      [ngClass]="{ 'is-invalid': submitted && f.email.errors}">
       <mat-hint>Please enter a valid email.</mat-hint>
       <mat-error>Invalid or missing email.</mat-error>
     </mat-form-field>
