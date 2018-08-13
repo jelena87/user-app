@@ -38,6 +38,7 @@
     "jwt-decode": "^2.2.0",
     "method-override": "^3.0.0",
     "mongoose": "^5.2.6",
+    "ngx-toastr": "^8.10.0",
     "rxjs": "^6.0.0",
     "rxjs-compat": "^6.2.2",
     "zone.js": "~0.8.26"

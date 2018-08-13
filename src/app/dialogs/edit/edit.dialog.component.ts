@@ -35,6 +35,6 @@ export class EditDialogComponent implements OnInit {
   stopEdit(): void {
     this.dataService.updateIssue(this.data);
   }
-}
 
+  ngOnInit() {}
 }

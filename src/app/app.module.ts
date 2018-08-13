@@ -4,6 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ToastrModule } from 'ngx-toastr';
 
 import { AppComponent } from './app.component';
 import { MaterialModule } from './material.module';
@@ -59,7 +60,12 @@ import {DeleteDialogComponent} from './dialogs/delete/delete.dialog.component';
     FlexLayoutModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ToastrModule.forRoot({
+    timeOut: 10000,
+    positionClass: 'toast-top-right',
+    preventDuplicates: true,
+  }),
   ],
   entryComponents: [
     AddDialogComponent,

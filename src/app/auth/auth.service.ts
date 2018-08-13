@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs/Subject';
+import { ToastrService } from 'ngx-toastr';
 
 import { User } from './user.model';
 import { AuthData } from './auth-data.model';
@@ -12,7 +13,9 @@ export class AuthService {
   authChange = new Subject<boolean>();
   private user: User;
 
-  constructor(private router: Router, private httpService: HttpService) {}
+  constructor(private router: Router,
+              private httpService: HttpService,
+              private toastr: ToastrService) {}
 
   registerUser (authData: AuthData) {
     //send request to the server and create a user there
