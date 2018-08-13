@@ -1,22 +1,58 @@
-<div fxLayoutAlign="center center">
-  <mat-form-field fxFlex="40%">
-    <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
-  </mat-form-field>
-</div>
 <mat-table [dataSource]="dataSource">
-  <ng-container matColumnDef="userId">
-    <mat-header-cell *matHeaderCellDef>User ID</mat-header-cell>
-    <mat-cell *matCellDef="let element">{{ element.userId }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="email">
-    <mat-header-cell *matHeaderCellDef>Email</mat-header-cell>
-    <mat-cell *matCellDef="let element">{{ element.email }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="password">
-    <mat-header-cell *matHeaderCellDef>Password</mat-header-cell>
-    <mat-cell *matCellDef="let element">{{ element.password }}</mat-cell>
-  </ng-container>
+    <ng-container matColumnDef="userId">
+      <mat-header-cell *matHeaderCellDef> User ID </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <mat-form-field floatLabel="{{ row.editing ? 'float' : 'never'}}">
+          <input matInput [formControl]="row.validator.controls['userId']" [readonly]="!row.editing" placeholder="UserID" [(ngModel)]="row.currentData.userId">
+        </mat-form-field>
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="email">
+      <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <mat-form-field floatLabel="{{ row.editing ? 'float' : 'never'}}">
+          <input matInput [formControl]="row.validator.controls['email']" type="email" placeholder="Email" [(ngModel)]="row.currentData.email">
+        </mat-form-field>
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="password">
+      <mat-header-cell *matHeaderCellDef> Password </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <mat-form-field floatLabel="{{ row.editing ? 'float' : 'never'}}">
+          <input matInput [formControl]="row.validator.controls['password']" type="text" placeholder="Password" [(ngModel)]="row.currentData.password">
+        </mat-form-field>
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="status">
+      <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <mat-form-field floatLabel="{{ row.editing ? 'float' : 'never'}}">
+        <mat-select placeholder="Active" [(ngModel)]="row.currentData.status" [formControl]="row.validator.controls['status']">
+          <mat-option *ngFor="let stat of status" [value]="stat">
+            {{ stat.viewValue }}
+          </mat-option>
+        </mat-select>
+        </mat-form-field>
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="actionsColumn">
+      <mat-header-cell *matHeaderCellDef>
+        Edit
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <button *ngIf="!row.editing" mat-icon-button color="primary" focusable="false" (click)="row.startEdit()">
+              <mat-icon>create</mat-icon>
+            </button>
+        <button *ngIf="row.editing" mat-icon-button color="primary" focusable="false" (click)="row.confirmEditCreate()">
+              <mat-icon>done</mat-icon>
+            </button>
+        <button mat-icon-button color="primary" focusable="false" (click)="row.cancelOrDelete()">
+              <mat-icon>delete</mat-icon>
+            </button>
+      </mat-cell>
+    </ng-container>
 
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
   <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
 </mat-table>
+<mat-paginator #paginator [pageSize]="1" [pageSizeOptions]="[1, 5, 10]"></mat-paginator>

@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { MaterialModule } from './material.module';
@@ -19,6 +20,7 @@ import { UpdateAddressComponent } from './user-profile/update-address/update-add
 import { AdminProfileComponent } from './admin-profile/admin-profile.component';
 import { UsersListComponent } from './admin-profile/users-list/users-list.component';
 import { AdminsListComponent } from './admin-profile/admins-list/admins-list.component';
+import { AuthGuard } from './auth/auth.guard';
 
 @NgModule({
   declarations: [
@@ -42,9 +44,11 @@ import { AdminsListComponent } from './admin-profile/admins-list/admins-list.com
     AppRoutingModule,
     FlexLayoutModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
-  providers: [AuthService],
+  providers: [AuthService,
+      AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,5 +1,6 @@
  import { Component, OnInit } from '@angular/core';
  import { FormGroup, FormControl, Validators } from '@angular/forms';
+ import { Router } from '@angular/router';
 
  import { AuthService } from '../auth.service';
 
@@ -12,7 +13,7 @@
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
     this.loginForm = new FormGroup({
@@ -22,13 +23,11 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    this.authService.login({
-      email: this.loginForm.value.email,
-      password: this.loginForm.value.password,
-      roles: {
-        admin: true
-      }
-    });
+    const val = this.loginForm.value;
+
+    if(val.email && val.password) {
+      this.authService.login(val.email, val.password);
+    }
   }
 
 }

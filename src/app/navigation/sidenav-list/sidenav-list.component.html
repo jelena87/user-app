@@ -5,8 +5,8 @@
     <mat-icon>input</mat-icon><span class="nav-caption">Login</span></a>
   <a mat-list-item routerLink="/user" (click)="onCloseSidenav()" *ngIf="isAuth">
     <mat-icon>supervisor_account</mat-icon><span class="nav-caption">User Profile</span></a>
-  <a mat-list-item routerLink="/admin" (click)="onCloseSidenav()" *ngIf="isAuth">
-    <mat-icon>supervisor_account</mat-icon><span class="nav-caption">Admin Profile</span></a>
+<!--  <a mat-list-item routerLink="/admin" (click)="onCloseSidenav()" *ngIf="isAdmin && isAuth">
+    <mat-icon>supervisor_account</mat-icon><span class="nav-caption">Admin Profile</span></a>  -->
   <mat-list-item>
     <button mat-icon-button (click)="onLogout()" *ngIf="isAuth">
       <mat-icon>eject</mat-icon><span class="nav-caption">Logout</span>
