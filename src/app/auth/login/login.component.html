@@ -5,8 +5,7 @@
       type="email"
       matInput
       placeholder="Your Email"
-      formControlName="email"
-      [ngClass]="{ 'is-invalid': submitted && f.email.errors}">
+      formControlName="email">
       <mat-hint>Please enter a valid email.</mat-hint>
       <mat-error>Invalid or missing email.</mat-error>
     </mat-form-field>
@@ -20,5 +19,6 @@
       <mat-error>Invalid or missing password.</mat-error>
     </mat-form-field>
     <button type="submit" mat-raised-button color="primary" [disabled]="loginForm.invalid">Submit</button>
+    <a routerLink="/reset-password">Forgot your password?</a>
   </form>
 </section>

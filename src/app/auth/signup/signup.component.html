@@ -1,12 +1,11 @@
-<section class="login-form">
-  <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+<section class="signup-form">
+  <form fxLayout="column" fxLayoutAlign="center center" (ngSubmit)="onSubmit()" [formGroup]="signupForm" fxLayoutGap="10px">
     <mat-form-field>
       <input
       type="email"
       matInput
       placeholder="Your Email"
-      formControlName="email"
-      >
+      formControlName="email">
       <mat-hint>Please enter a valid email.</mat-hint>
       <mat-error>Invalid or missing email.</mat-error>
     </mat-form-field>
@@ -16,9 +15,9 @@
       matInput
       placeholder="Your Password"
       formControlName="password">
-      <mat-hint>Please enter your password.</mat-hint>
-      <mat-error>Invalid or missing password.</mat-error>
+      <mat-error>Should be at least 8 characters long.</mat-error>
     </mat-form-field>
-    <button type="submit" mat-raised-button color="primary" [disabled]="signupForm.invalid">Submit</button>
+      <mat-checkbox name="agree" color="primary" formControlName="check">Agree to Terms and Conditions.</mat-checkbox>
+    <button type="submit" mat-raised-button color="primary" [disabled]=signupForm.invalid>Submit</button>
   </form>
 </section>

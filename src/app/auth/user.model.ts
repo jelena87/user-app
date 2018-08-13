@@ -1,5 +1,11 @@
+export interface Roles {
+  standard?: boolean;
+  admin?: boolean;
+}
+
 export interface User {
-  id: number;
+  userId?: string;
   email: string;
   password: string;
+  roles?: Roles;
 }
