@@ -27,9 +27,9 @@ import { AdminsListComponent } from './admin-profile/admins-list/admins-list.com
 import { UsersListComponent } from './admin-profile/users-list/users-list.component';
 import { CreateNewAdminComponent } from './admin-profile/create-new-admin/create-new-admin.component';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
-import {AddDialogComponent} from './dialogs/add/add.dialog.component';
-import {EditDialogComponent} from './dialogs/edit/edit.dialog.component';
-import {DeleteDialogComponent} from './dialogs/delete/delete.dialog.component';
+import { AddDialogComponent } from './dialogs/add/add.dialog.component';
+import { EditDialogComponent } from './dialogs/edit/edit.dialog.component';
+import { DeleteDialogComponent } from './dialogs/delete/delete.dialog.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +75,12 @@ import {DeleteDialogComponent} from './dialogs/delete/delete.dialog.component';
   providers: [
     AuthService,
     HttpService,
-    DataService
+    DataService,
+    {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthInterceptor,
+            multi: true
+        },
   ],
   bootstrap: [AppComponent]
 })

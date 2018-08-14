@@ -11,27 +11,13 @@ export class AuthInterceptor implements HttpInterceptor {
 
     constructor(private router: Router) { }
 
-    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        if (req.headers.get('No-Auth') == "True")
-            return next.handle(req.clone());
+    intercept(req, next) {
+        const authService = this.injector.get(AuthService);
+        const authRequest = req.clone({
+            // tslint:disable-next-line:max-line-length
+            headers: req.headers.set('Authorization', 'Bearer ' + authService.token)
+        });
 
-        if (localStorage.getItem('userToken') != null) {
-            const clonedreq = req.clone({
-                headers: req.headers.set("Authorization", "Bearer " + localStorage.getItem('userToken'))
-            });
-            return next.handle(clonedreq)
-                .do(
-                    succ => { },
-                    err => {
-                        if (err.status === 401)
-                            this.router.navigateByUrl('/login');
-                        else (err.status === 403)
-                        this.router.navigateByUrl('/forbidden');
-                    }
-                );
-        }
-        else {
-            this.router.navigateByUrl('/login');
-        }
+        return next.handle(authRequest);
     }
 }
