@@ -2,9 +2,17 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.1.1.
 
-## Development server
+## Basic setup
+Just run npm i, and run in one of the selected profiles(dev, production, mock)
+
+## Development server and mock data
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+
+In case of running with mock data, you also need to run: json-server --watch db.json --routes routes.json in separate terminal to run the mock database.
+To be able to run json-server you need to either install it with `npm i -g json-server` or use it from local node_modules using `node_modules/json-server/bin/index.js`
+To run the server with mock data run ng s -c = mock.
+db.json file contains mock data for return values, and routes contain the mapping for mock URL's return data.
 
 ## Code scaffolding
 

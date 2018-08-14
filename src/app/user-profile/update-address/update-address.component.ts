@@ -13,16 +13,8 @@ export class UpdateAddressComponent implements OnInit {
   updateAddress: FormGroup;
 
   constructor(private formBuilder: FormBuilder) {
-    this.addressChange = this.formBuilder.group({
-      newEmail: ['', {validators: [Validators.required, Validators.email]}],
-      confirmEmail: ['', {validators: [Validators.required, Validators.email]}]
-    }, {
-      validator: EmailValidator.validate.bind(this)
-    });
-
     this.updateAddress = this.formBuilder.group({
-      oldEmail: ['', {validators: [Validators.required, Validators.email]}],
-      addressChange: this.addressChange
+      oldEmail: ['', {validators: [Validators.required, Validators.pattern('[a-zA-Z0-9-]+')]}],
     });
    }
 

@@ -9,10 +9,12 @@ import {
   MatToolbarModule,
   MatListModule,
   MatTabsModule,
+  MatCardModule,
   MatTableModule,
   MatSortModule,
   MatSelectModule,
-  MatPaginatorModule
+  MatPaginatorModule,
+  MatDialogModule
 } from '@angular/material';
 
 @NgModule({
@@ -26,10 +28,12 @@ import {
     MatToolbarModule,
     MatListModule,
     MatTabsModule,
+    MatCardModule,
     MatTableModule,
     MatSortModule,
-  MatSelectModule,
-  MatPaginatorModule
+    MatSelectModule,
+    MatPaginatorModule,
+    MatDialogModule
   ],
   exports: [
     MatButtonModule,
@@ -41,10 +45,12 @@ import {
     MatToolbarModule,
     MatListModule,
     MatTabsModule,
+    MatCardModule,
     MatTableModule,
     MatSortModule,
-  MatSelectModule,
-  MatPaginatorModule
+    MatSelectModule,
+    MatPaginatorModule,
+    MatDialogModule
   ]
 })
 export class MaterialModule { }

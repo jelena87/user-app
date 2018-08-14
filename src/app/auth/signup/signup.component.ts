@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { first } from 'rxjs/operators';
 
-import { UserService } from '../user.service';
-import { AlertService } from '../alert.service';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-signup',
@@ -13,51 +12,24 @@ import { AlertService } from '../alert.service';
 })
 export class SignupComponent implements OnInit {
   signupForm: FormGroup;
-  loading = false;
-  submitted = false;
 
-  constructor(private alertService: AlertService,
-              private router: Router,
-              private userService: UserService) { }
+  constructor(private authService: AuthService, private router : Router) { }
 
   ngOnInit() {
     this.signupForm = new FormGroup({
       email: new FormControl('', {validators: [Validators.required, Validators.email]}),
-      password: new FormControl('', {validators:[Validators.required, Validators.minLength(8)]})
+      password: new FormControl('', {validators:[Validators.required, Validators.minLength(8)]}),
+      check: new FormControl('', {validators:[Validators.required]})
     });
   }
 
-<<<<<<< HEAD
-  onSubmit(form: NgForm) {
+
+  onSubmit(email, password) {
     this.authService.registerUser({
-      email: form.value.email,
-      password: form.value.password,
+      email: this.signupForm.value.email,
+      password: this.signupForm.value.password,
+
     });
-=======
-  get f() {
-    return this.signupForm.controls;
-  }
-
-  onSubmit() {
-    this.submitted = true;
-
-    if(this.signupForm.invalid) {
-      return;
-    }
-    this.loading = true;
-    this.userService.register(this.signupForm.value)
-      .pipe(first())
-      .subscribe(
-        data => {
-          this.alertService.success('Registration successful', true);
-          this.router.navigate(['/login']);
-        },
-        error => {
-          this.alertService.error(error);
-          this.loading = false;
-        }
-      );
->>>>>>> aaef90bd83c75baac9b90b62a416efecc2bebf51
   }
 
 }

@@ -1,31 +1,89 @@
 import { Injectable } from '@angular/core';
-<<<<<<< HEAD
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs/Subject';
+import { ToastrService } from 'ngx-toastr';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Response } from "@angular/http";
-import { Observable } from 'rxjs';
-import 'rxjs/add/operator/map';
 
 import { User } from './user.model';
+import { AuthData } from './auth-data.model';
+import { environment } from '../../environments/environment';
+import { HttpService } from '../shared/http.service';
 
 @Injectable()
 export class AuthService {
   authChange = new Subject<boolean>();
-  readonly rootUrl = 'http://localhost:4200';
+  private user: User;
+  TOKEN_KEY = 'token';
 
+  constructor(private router: Router,
+              private httpService: HttpService,
+              private toastr: ToastrService) {}
 
-  constructor(private router: Router, private http: HttpClient) {}
+  get token() {
+      return localStorage.getItem(this.TOKEN_KEY);
+  }
 
-  registerUser(user: User, roles: string[]) {
+  registerUser (authData: AuthData) {
     //send request to the server and create a user there
-    const body = {
-    Email: user.email,
-    Password: user.password,
-    Roles: roles,
-    userId: Math.round(Math.random() * 10000).toString() //will be created on db
-    };
-    this.authSuccessfully();
+    console.log(environment.service);
+    this.httpService.postToUrl<AuthData>(environment.service + '/users', authData).subscribe(
+        (data: any) => {
+            this.user = data;
+            this.authSuccessfully();
+        },
+        (err: any) => {
+            console.log('An error occurred while creating user:' + err);
+            this.toastr.error('An error occurred while creating a user!', 'Email is already taken!', {
+  timeOut: 3000
+});
+        }
+    );
+  }
+
+  login(email: string, password: string) {
+        const headers = {
+            headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' })
+        };
+
+        const data = {
+            email: email,
+            password: password
+        };
+
+        this.httpService.postToUrl(environment.service + '/login', data, headers).subscribe(
+            (res: any) => {
+                localStorage.setItem(this.TOKEN_KEY, res.token);
+
+                this.router.navigateByUrl('/user');
+            }
+        );
+    }
+
+    logout() {
+         localStorage.removeItem(this.TOKEN_KEY);
+         this.router.navigateByUrl('/');
+     }
+
+    getAccount() {
+        return this.http.get(this.API_URL + '/account');
+    }
+
+  resetPass(authData: AuthData) {
+    return this.httpService.postToUrl<AuthData>(environment.service + '/user/sendPasswordResetLink', authData);
+  }
+
+
+  getUser() {
+    return this.httpService.getFromUrl(environment.service + '/getUser');
+  }
+
+   get isAuth() {
+    return !!localStorage.getItem(this.TOKEN_KEY);
+  }
+
+  getAllRoles() {
+    var reqHeader = new HttpHeaders({ 'No-Auth': 'True' });
+    return this.httpService.getFromUrl(environment.service + '/api/GetAllRoles', { headers: reqHeader });
   }
 
   roleMatch(allowedRoles): boolean {
@@ -41,55 +99,8 @@ export class AuthService {
 
   }
 
-  userAuthentication(userName, password) {
-    var data = "username=" + userName + "&password=" + password + "&grant_type=password";
-    var reqHeader = new HttpHeaders({ 'Content-Type': 'application/x-www-urlencoded','No-Auth':'True' });
-    return this.http.post(this.rootUrl + '/token', data, { headers: reqHeader });
-  }
-
-  login(user: User, roles: string[]) {
-    this.user = {
-    email: user.email,
-    password: user.password,
-    userId: Math.round(Math.random() * 10000).toString() //will be created on db
-    };
-    this.authSuccessfully();
-=======
-import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
-
-@Injectable()
-export class AuthService {
-  constructor(private http: HttpClient) {}
-
-  login(email: string, password: string) {
-    return this.http.post<any>('/users/authenticate', { email: email, password: password })
-      .pipe(map(user => {
-        //login successful if there is a jwt token in the response
-        if(user && user.token) {
-        //store user details and jwt token in local storage
-        localStorage.setItem('currentUser', JSON.stringify(user));
-      }
-      return user;
-    }));
->>>>>>> aaef90bd83c75baac9b90b62a416efecc2bebf51
-  }
-
-  logout() {
-    //remove user from local storage
-    localStorage.removeItem('currentUser');
-  }
-
-  isAuth() {
-<<<<<<< HEAD
-    return this.user != null;
-  }
-
   private authSuccessfully() {
     this.authChange.next(true);
-    this.router.navigate(['/user']);
-=======
-    return !!localStorage.getItem('currentUser');
->>>>>>> aaef90bd83c75baac9b90b62a416efecc2bebf51
+    this.router.navigate(['/']);
   }
 }

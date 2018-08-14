@@ -1,0 +1,21 @@
+<section class="create-user">
+  <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" [formGroup]="createUser" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+      <input
+      type="email"
+      matInput
+      placeholder="Enter Admins Email"
+      formControlName="email">
+      <mat-hint>Please enter a valid email.</mat-hint>
+      <mat-error>Invalid or missing email.</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+    <mat-select placeholder="Admins Permissions" [formControl]="permissions" multiple>
+      <mat-option *ngFor="let permission of permissionsList" [value]="permission">
+        {{permission}}
+      </mat-option>
+    </mat-select>
+    </mat-form-field>
+    <button type="submit" mat-raised-button color="primary" [disabled]="createUser.invalid">Submit</button>
+  </form>
+</section>
