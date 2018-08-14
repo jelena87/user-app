@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { first } from 'rxjs/operators';
 
-import { AuthService } from '../auth.service';
+import { UserService } from '../user.service';
+import { AlertService } from '../alert.service';
 
 @Component({
   selector: 'app-signup',
@@ -9,17 +12,52 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
+  signupForm: FormGroup;
+  loading = false;
+  submitted = false;
 
-  constructor(private authService: AuthService) { }
+  constructor(private alertService: AlertService,
+              private router: Router,
+              private userService: UserService) { }
 
   ngOnInit() {
+    this.signupForm = new FormGroup({
+      email: new FormControl('', {validators: [Validators.required, Validators.email]}),
+      password: new FormControl('', {validators:[Validators.required, Validators.minLength(8)]})
+    });
   }
 
+<<<<<<< HEAD
   onSubmit(form: NgForm) {
     this.authService.registerUser({
       email: form.value.email,
       password: form.value.password,
     });
+=======
+  get f() {
+    return this.signupForm.controls;
+  }
+
+  onSubmit() {
+    this.submitted = true;
+
+    if(this.signupForm.invalid) {
+      return;
+    }
+    this.loading = true;
+    this.userService.register(this.signupForm.value)
+      .pipe(first())
+      .subscribe(
+        data => {
+          this.alertService.success('Registration successful', true);
+          this.router.navigate(['/login']);
+        },
+        error => {
+          this.alertService.error(error);
+          this.loading = false;
+        }
+      );
+>>>>>>> aaef90bd83c75baac9b90b62a416efecc2bebf51
   }
 
 }

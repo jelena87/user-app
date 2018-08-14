@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+<<<<<<< HEAD
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs/Subject';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -53,24 +54,42 @@ export class AuthService {
     userId: Math.round(Math.random() * 10000).toString() //will be created on db
     };
     this.authSuccessfully();
+=======
+import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
+
+@Injectable()
+export class AuthService {
+  constructor(private http: HttpClient) {}
+
+  login(email: string, password: string) {
+    return this.http.post<any>('/users/authenticate', { email: email, password: password })
+      .pipe(map(user => {
+        //login successful if there is a jwt token in the response
+        if(user && user.token) {
+        //store user details and jwt token in local storage
+        localStorage.setItem('currentUser', JSON.stringify(user));
+      }
+      return user;
+    }));
+>>>>>>> aaef90bd83c75baac9b90b62a416efecc2bebf51
   }
 
   logout() {
-    this.user = null;
-    this.authChange.next(false);
-    this.router.navigate(['/login']);
-  }
-
-  getUser() {
-    return { ...this.user };
+    //remove user from local storage
+    localStorage.removeItem('currentUser');
   }
 
   isAuth() {
+<<<<<<< HEAD
     return this.user != null;
   }
 
   private authSuccessfully() {
     this.authChange.next(true);
     this.router.navigate(['/user']);
+=======
+    return !!localStorage.getItem('currentUser');
+>>>>>>> aaef90bd83c75baac9b90b62a416efecc2bebf51
   }
 }
